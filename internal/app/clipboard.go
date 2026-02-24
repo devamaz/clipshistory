@@ -2,7 +2,6 @@ package app
 
 import (
 	"context"
-	"fmt"
 	"strings"
 	"time"
 
@@ -23,12 +22,12 @@ func MonitorClipboard(storage *store.Store) {
 		for {
 			<-check
 			str := string(curByte)
-			fmt.Println("Read string: " + str)
+			// fmt.Println("Read string: " + str)
 			if !strings.Contains(str, "keyword here") {
-				fmt.Println("content non violated")
+				// fmt.Println("content non violated")
 				nonViolate <- false
 			} else {
-				fmt.Println("content violated")
+				// fmt.Println("content violated")
 				nonViolate <- true
 			}
 		}
@@ -53,14 +52,14 @@ func MonitorClipboard(storage *store.Store) {
 					IsDeleted:    false,
 				}
 				if err := storage.Save(clip); err != nil {
-					fmt.Printf("Error saving clip to database: %v\n", err)
+					// fmt.Printf("Error saving clip to database: %v\n", err)
 				} else {
-					fmt.Println("Successfully saved clip to database")
+					// fmt.Println("Successfully saved clip to database")
 				}
-				fmt.Println("Going to write: " + string(curByte))
+				// fmt.Println("Going to write: " + string(curByte))
 				clipboard.Write(clipboard.FmtText, curByte)
 			} else {
-				fmt.Println("Going to write nothing here")
+				// fmt.Println("Going to write nothing here")
 				clipboard.Write(clipboard.FmtText, []byte("\n"))
 				curByte = []byte("\n")
 			}
